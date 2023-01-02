@@ -1,4 +1,4 @@
-#pragma once   //maybe should be static class
+#pragma once
 #include "display.h"
 #include "game.h"
 
@@ -24,29 +24,61 @@
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Game *scn = (Game*)glfwGetWindowUserPointer(window);
-
+		glm::vec3 yAxis(0, 1, 0);
+		glm::vec3 xAxis(1, 0, 0);
+		char rotations[] = { 'U','D','L','R','F','B',' ','Z','A'};
 		if(action == GLFW_PRESS || action == GLFW_REPEAT)
 		{
 			switch (key)
-			{
-				case GLFW_KEY_ESCAPE:			
-					glfwSetWindowShouldClose(window,GLFW_TRUE);
+			{case GLFW_KEY_R:
+				scn->moves.push('R');
 				break;
-				case GLFW_KEY_SPACE:
-					if(scn->IsActive())
-						scn->Deactivate();
-					else
-						scn->Activate();
+			case GLFW_KEY_L:
+				scn->moves.push('L');
+				break;
+			case GLFW_KEY_U:
+				scn->moves.push('U');
+				break;
+			case GLFW_KEY_D:
+				scn->moves.push('D');
+				break;
+			case GLFW_KEY_B:
+				scn->moves.push('B');
+				break;
+			case GLFW_KEY_F:
+				scn->moves.push('F');
+				break;
+			case GLFW_KEY_SPACE:
+				scn->moves.push(' ');
+				break;
+			case GLFW_KEY_Z:
+				scn->moves.push('Z');
+				break;
+			case GLFW_KEY_A:
+				scn->moves.push('A');
+				break;
+			case GLFW_KEY_M:
+				for (int i = 0; i < 100; i++) {
+					scn->moves.push(rotations[rand() % 9]);
+				}
 				break;
 
-				case GLFW_KEY_UP:
-					scn->MoveCamera(0,scn->zTranslate,0.4f);
-					break;
-				case GLFW_KEY_DOWN:
-					//scn->shapeTransformation(scn->xGlobalRotate,-5.f);
-					//cout<< "down: "<<endl;
-					scn->MoveCamera(0,scn->zTranslate,-0.4f);
-					break;
+			case GLFW_KEY_ESCAPE:			
+				glfwSetWindowShouldClose(window,GLFW_TRUE);
+			break;
+
+			case GLFW_KEY_UP:
+				scn->MyRotate(-5, yAxis, 0);
+				break;
+			case GLFW_KEY_DOWN:
+				scn->MyRotate(5, yAxis, 0);
+				break;
+			case GLFW_KEY_RIGHT:
+				scn->MyRotate(-5, xAxis, 0);
+				break;
+			case GLFW_KEY_LEFT:
+				scn->MyRotate(5, xAxis, 0);
+				break;
 
 			default:
 				break;
