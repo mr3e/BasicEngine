@@ -1,5 +1,5 @@
-#include "scene.h"
 #include "glad/include/glad/glad.h"
+#include "scene.h"
 #include <iostream>
 
 	static void printMat(const glm::mat4 mat)
@@ -88,11 +88,11 @@
 		if(toClear)
 		{
 			if(shaderIndx>0)
-				Clear(1,0,1,1);
+				Clear(1,1,1,1);
 			else
 				Clear(0,0,0,0);
 		}
-
+		
 		for (unsigned int i=0; i<shapes.size();i++)
 		{
 			if(shapes[i]->Is2Render())
@@ -265,7 +265,3 @@
 		}
 
 }
-
-
-	 
-	
